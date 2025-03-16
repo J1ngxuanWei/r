@@ -1,0 +1,12 @@
+--- a/jpeg-6a/Makefile	2001-10-17 12:57:06.000000000 +1000
++++ b/jpeg-6a/Makefile	2017-10-12 10:40:48.926302684 +1100
+@@ -20,5 +20,5 @@
+ mandir = $(prefix)/man/man$(manext)
+
+ # The name of your C compiler:
+-CC= gcc
++CC= $(RUMPRUN_CC)
+
+ # You may need to adjust these cc options:
+ CFLAGS= -O  -I$(srcdir)
+ # Generally, we recommend defining any configuration symbols in jconfig.h,

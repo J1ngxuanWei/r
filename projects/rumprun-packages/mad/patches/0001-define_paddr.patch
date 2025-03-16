@@ -1,0 +1,10 @@
+--- a/mad-0.14.2b/audio_sun.c	2001-11-03 11:49:07.000000000 +1100
++++ b/mad-0.14.2b/audio_sun.c	2017-10-05 11:19:07.007630935 +1100
+@@ -37,6 +37,7 @@
+ #  include <stropts.h>
+ # endif
+
++typedef long paddr_t;
+ # include <sys/conf.h>
+
+ # include "mad.h"

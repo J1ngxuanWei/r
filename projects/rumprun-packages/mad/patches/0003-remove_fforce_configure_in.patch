@@ -1,0 +1,10 @@
+--- a/mad-0.14.2b/libmad/configure.in	2001-11-04 06:15:07.000000000 +1100
++++ b/mad-0.14.2b/libmad/configure.in	2017-10-05 11:10:30.297215058 +1100
+@@ -115,7 +115,6 @@
+     case "$optimize" in
+ 	-O|"-O "*)
+ 	    optimize="-O"
+-	    optimize="$optimize -fforce-mem"
+ 	    optimize="$optimize -fforce-addr"
+ 	    : #x optimize="$optimize -finline-functions"
+ 	    : #- optimize="$optimize -fstrength-reduce"
