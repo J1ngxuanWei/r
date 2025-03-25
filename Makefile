@@ -1,20 +1,21 @@
-QEMU := qemu-system-x86_64
-KERNEL := build/images/kernel-x86_64-pc99
-INITRD := build/images/roottask-image-x86_64-pc99
-CPU := Nehalem,-vme,+pdpe1gb,-xsave,-xsaveopt,-xsavec,-fsgsbase,-invpcid,+syscall,+lm,enforce
-MEMORY := 512M
-GRAPHIC := -nographic
-SERIAL := -serial mon:stdio
-NET := -net nic,model=e1000
+.PHONY: build run clean
 
-build:
-	rm -rf build
-	mkdir build
-	cd build && ../init-build.sh -DPLATFORM=x86_64 -DSIMULATION=TRUE -DAPP=iperf3
-	cd build && ninja
+QEMU_BIN = qemu-system-x86_64
+KERNEL_FILE = build-x86/images/kernel-x86_64-pc99
+INITRD_FILE = build-x86/images/sel4test-driver-image-x86_64-pc99
+CPU_OPTIONS = -cpu Nehalem,-vme,+pdpe1gb,-xsave,-xsaveopt,-xsavec,-fsgsbase,-invpcid,+syscall,+lm,enforce -smp 1
+GRAPHIC_OPTIONS = -nographic
+SERIAL_OPTIONS = -serial mon:stdio
+MEM_SIZE = -m size=3G
+NET = -netdev user,id=net0 -device e1000e,netdev=net0
 
-clean:
-	rm -rf build
+build: clean
+	mkdir build-x86
+	cd build-x86 && ../init-build.sh -DPLATFORM=x86_64 -DSIMULATION=TRUE
+	cd build-x86 && ninja
 
 run:
-	$(QEMU) -cpu $(CPU) $(GRAPHIC) $(SERIAL) -m size=$(MEMORY) -kernel $(KERNEL) -initrd $(INITRD)
+	$(QEMU_BIN) -kernel $(KERNEL_FILE) -initrd $(INITRD_FILE) $(CPU_OPTIONS) $(NET) $(GRAPHIC_OPTIONS) $(SERIAL_OPTIONS) $(MEM_SIZE)
+
+clean:
+	rm -rf build-x86
